@@ -3,17 +3,17 @@ films = [{
     "description": "A story of a boat and its love for icecream"
 }, {
     "name": "Dragon",
-    "description": ""
+    "description": "Un boiteux et son chat noir volant"
 }, {
     "name": "Joker",
-    "description": ""
+    "description": "Biographie d'un schizophrène en chasse d'une chauve-souris"
 }, {
     "name": "Your name",
-    "description": ""
+    "description": "Des enfants qui ne veulent pas voir le feu d'artifice"
 }, {
     "name": "Le prestige",
-    "description": ""
+    "description": "c'est l'histoire de 2 magiciens"
 }, {
     "name": "Le grand bleu",
-    "description": ""
+    "description": "3h de bloup bloup"
 }]
