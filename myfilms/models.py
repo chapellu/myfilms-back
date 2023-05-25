@@ -3,10 +3,21 @@ from pydantic import BaseModel
 
 class FilmModel(BaseModel):
     id: int
-    name: str
+    title: str
     description: str
+
+
+class AuthorModel(BaseModel):
+    id: int
+    first_name: str
+    last_name: str
 
 
 class FilmsModel(BaseModel):
     length: int
     films: list[FilmModel]
+
+
+class FilmDetailsModel(FilmModel):
+    actors: list[AuthorModel]
+    grade: float
