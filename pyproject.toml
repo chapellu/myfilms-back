@@ -15,6 +15,7 @@ fastapi = {extras = ["all"], version = "^0.95.2"}
 pytest = "^7.3.1"
 pycodestyle = "^2.10.0"
 yapf = "^0.33.0"
+pytest-cov = "^4.1.0"
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,3 +1,6 @@
+from myfilms.models import FilmsModel
+
+
 class Singleton(type):
     _instances = {}
 
@@ -11,7 +14,7 @@ class Database(metaclass=Singleton):
     instance = None
     films = []
 
-    async def get_films(self, page: int = 1):
+    async def get_films(self, page: int = 1) -> FilmsModel:
         bottom = 5 * (page - 1)
         top = 5 * page
         return {"films": self.films[bottom:top], "length": len(self.films)}
