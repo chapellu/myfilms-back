@@ -1,0 +1,13 @@
+{
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": ["tests", "-vv"],
+  "python.linting.pylintEnabled": false,
+  "python.linting.pycodestyleEnabled": true,
+  "python.linting.pycodestyleArgs": ["--max-line-length=120"],
+  "python.linting.enabled": true,
+  "python.formatting.provider": "yapf",
+  "editor.formatOnSave": true,
+  "testOnSave.testCommand": ".venv/bin/pytest --cov-report xml tests --cov myfilms",
+  "coverage-gutters.coverageFileNames": ["coverage.xml"]
+}
