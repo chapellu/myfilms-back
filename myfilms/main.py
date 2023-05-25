@@ -5,7 +5,7 @@ from fastapi import FastAPI, status
 
 from myfilms.config import Config
 from myfilms.database import Database
-from myfilms.models import FilmsModel
+from myfilms.models import FilmDetailsModel, FilmsModel
 
 app = FastAPI(title="My films reviews",
               description=f"A little application to list films and their reviews",
@@ -21,6 +21,17 @@ app = FastAPI(title="My films reviews",
          description="Get all films")
 async def film_list(page: int = 1):
     return await Database().get_films(page)
+
+
+@app.get("/{film_id}",
+         status_code=status.HTTP_200_OK,
+         responses={200: {
+             "description": "Full details of the specific film"
+         }},
+         response_model=FilmDetailsModel,
+         description="Get the full details of the specific film")
+async def film(film_id: int):
+    return await Database().get_film(film_id)
 
 
 if __name__ == "__main__":
