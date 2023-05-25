@@ -1,4 +1,4 @@
-from myfilms.models import FilmDetailsModel, FilmsModel
+from myfilms.models import FilmDetailsModel, FilmUpdateModel, FilmsModel
 from statistics import mean
 
 
@@ -34,3 +34,12 @@ class Database(metaclass=Singleton):
             "actors": actors,
             "grade": round(mean(map(lambda grade: grade["grade"], reviews)), 1)
         }
+
+    async def put_film(self, movie_id: int, update: FilmUpdateModel):
+        film = next(filter(lambda film: film["id"] == movie_id, self.films))
+        if update.description:
+            film["description"] = update.description
+        if update.actors:
+            film["actors"] = [actor.id for actor in update.actors]
+        if update.grade:
+            self.reviews.append({"id": len(self.reviews), "grade": update.grade, "movie": movie_id})

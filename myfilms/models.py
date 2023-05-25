@@ -21,3 +21,9 @@ class FilmsModel(BaseModel):
 class FilmDetailsModel(FilmModel):
     actors: list[AuthorModel]
     grade: float
+
+
+class FilmUpdateModel(BaseModel):
+    description: str | None = None
+    actors: list[AuthorModel] | None = None
+    grade: int | None = None
