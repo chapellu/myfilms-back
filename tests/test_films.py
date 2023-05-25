@@ -4,6 +4,7 @@ from tests.data import films
 
 def test__get_films___when_no_film__ok(client):
     # Given
+    Database().films = []
 
     # When
     response = client.get("/")

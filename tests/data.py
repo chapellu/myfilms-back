@@ -51,7 +51,7 @@ reviews = [{
 }, {
     "id": 2,
     "grade": 4,
-    "movie": 1
+    "movie": 2
 }, {
     "id": 3,
     "grade": 5,

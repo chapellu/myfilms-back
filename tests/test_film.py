@@ -58,5 +58,46 @@ def test__get_film_by_id__with_a_good_id_and_3_reviews__ok(client):
             "first_name": "David",
             "last_name": "Goodenough"
         }],
-        "grade": 4.5
+        "grade": 4.3
     }
+
+
+def test__put_film_by_id__when_updating_description__ok(client):
+    # Given
+    film_id = 1
+    Database().films = films
+
+    # When
+    response = client.put(f"/{film_id}", json={"description": "An heartbreaking love story"})
+
+    # Then
+    assert response.status_code == 202
+    assert Database().films[0]["description"] == "An heartbreaking love story"
+
+
+def test__put_film_by_id__when_updating_authors__ok(client):
+    # Given
+    film_id = 1
+    Database().films = films
+    Database().actors = actors
+
+    # When
+    response = client.put(f"/{film_id}", json={"actors": [{"id": 2, "first_name": "David", "last_name": "Goodenough"}]})
+
+    # Then
+    assert response.status_code == 202
+    assert Database().films[0]["actors"] == [2]
+
+
+def test__put_film_by_id__when_adding_review__ok(client):
+    # Given
+    film_id = 1
+    Database().films = films
+    Database().reviews = []
+
+    # When
+    response = client.put(f"/{film_id}", json={"grade": 5})
+
+    # Then
+    assert response.status_code == 202
+    assert {"id": 0, "grade": 5, "movie": film_id} in Database().reviews
