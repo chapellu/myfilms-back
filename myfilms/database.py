@@ -1,5 +1,5 @@
 from myfilms.models import FilmDetailsModel, FilmUpdateModel, FilmsModel
-from statistics import mean
+from statistics import StatisticsError, mean
 
 
 class Singleton(type):
@@ -27,12 +27,16 @@ class Database(metaclass=Singleton):
         actors = list(filter(lambda actor: actor["id"] in film["actors"], self.actors))
         reviews = list(filter(lambda grade: grade["movie"] == film["id"], self.reviews))
 
+        try:
+            grade = round(mean(map(lambda grade: grade["grade"], reviews)), 1)
+        except StatisticsError:
+            grade = 0
         return {
             "id": film["id"],
             "title": film["title"],
             "description": film["description"],
             "actors": actors,
-            "grade": round(mean(map(lambda grade: grade["grade"], reviews)), 1)
+            "grade": grade
         }
 
     async def put_film(self, movie_id: int, update: FilmUpdateModel):
