@@ -65,7 +65,12 @@ def test__get_film_by_id__with_a_good_id_and_3_reviews__ok(client):
 def test__put_film_by_id__when_updating_description__ok(client):
     # Given
     film_id = 1
-    Database().films = films
+    Database().films = [{
+        "id": 1,
+        "title": "Titanic",
+        "description": "A story of a boat and its love for icecream",
+        "actors": [1, 3]
+    }]
 
     # When
     response = client.put(f"/{film_id}", json={"description": "An heartbreaking love story"})
@@ -75,7 +80,7 @@ def test__put_film_by_id__when_updating_description__ok(client):
     assert Database().films[0]["description"] == "An heartbreaking love story"
 
 
-def test__put_film_by_id__when_updating_authors__ok(client):
+def test__put_film_by_id__when_deleting_an_author__ok(client):
     # Given
     film_id = 1
     Database().films = films
@@ -87,6 +92,58 @@ def test__put_film_by_id__when_updating_authors__ok(client):
     # Then
     assert response.status_code == 202
     assert Database().films[0]["actors"] == [2]
+
+
+def test__put_film_by_id__when_updating_an_author__ok(client):
+    # Given
+    film_id = 1
+    Database().films = films
+    Database().actors = actors
+
+    # When
+    response = client.put(f"/{film_id}",
+                          json={
+                              "actors": [{
+                                  "id": 1,
+                                  "first_name": "George",
+                                  "last_name": "YouKnowWho"
+                              }, {
+                                  "id": 3,
+                                  "first_name": "Albert",
+                                  "last_name": "Einstein"
+                              }]
+                          })
+
+    # Then
+    assert response.status_code == 202
+    assert Database().films[0]["actors"] == [1, 3]
+    assert Database().actors[0] == {"id": 1, "first_name": "George", "last_name": "YouKnowWho"}
+
+
+def test__put_film_by_id__when_adding_an_author__ok(client):
+    # Given
+    film_id = 1
+    Database().films = films
+    Database().actors = actors[:-1]
+
+    # When
+    response = client.put(f"/{film_id}",
+                          json={
+                              "actors": [{
+                                  "id": 1,
+                                  "first_name": "George",
+                                  "last_name": "YouKnowWho"
+                              }, {
+                                  "id": -1,
+                                  "first_name": "Albert",
+                                  "last_name": "Einstein"
+                              }]
+                          })
+
+    # Then
+    assert response.status_code == 202
+    assert Database().films[0]["actors"] == [1, 3]
+    assert Database().actors[2] == {"id": 3, "first_name": "Albert", "last_name": "Einstein"}
 
 
 def test__put_film_by_id__when_adding_review__ok(client):

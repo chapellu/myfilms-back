@@ -40,6 +40,19 @@ class Database(metaclass=Singleton):
         if update.description:
             film["description"] = update.description
         if update.actors:
+            for update_actor in update.actors:
+                try:
+                    actor = next(filter(lambda actor: actor["id"] == update_actor.id, self.actors))
+                    actor["first_name"] = update_actor.first_name
+                    actor["last_name"] = update_actor.last_name
+                except (StopIteration):
+                    update_actor.id = len(self.actors) + 1
+                    new_actor = {
+                        "id": len(self.actors) + 1,
+                        "first_name": update_actor.first_name,
+                        "last_name": update_actor.last_name
+                    }
+                    self.actors.append(new_actor)
             film["actors"] = [actor.id for actor in update.actors]
         if update.grade:
             self.reviews.append({"id": len(self.reviews), "grade": update.grade, "movie": movie_id})
