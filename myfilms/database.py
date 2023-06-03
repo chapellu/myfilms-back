@@ -47,7 +47,12 @@ class Database(metaclass=Singleton):
                     actor["last_name"] = update_actor.last_name
                 except (StopIteration):
                     update_actor.id = len(self.actors) + 1
-                    self.actors.append(update_actor)
+                    new_actor = {
+                        "id": len(self.actors) + 1,
+                        "first_name": update_actor.first_name,
+                        "last_name": update_actor.last_name
+                    }
+                    self.actors.append(new_actor)
             film["actors"] = [actor.id for actor in update.actors]
         if update.grade:
             self.reviews.append({"id": len(self.reviews), "grade": update.grade, "movie": movie_id})
