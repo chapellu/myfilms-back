@@ -23,3 +23,18 @@ poetry run dev
 
 Access the swagger
 http://0.0.0.0:8000/docs
+
+
+# Docker
+
+## Building the docker image
+
+```
+docker build -t myfilms-back:alpha -f deploy/Dockerfile .
+```
+
+## Running the docker image
+
+```
+docker run -p 8000:8000 --name myfilms-back myfilms-back:alpha
+```
