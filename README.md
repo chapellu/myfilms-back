@@ -7,42 +7,43 @@ When you click on a film you can access it's description, the actors casted as w
 Everybody can edit the descriptions, list of actors as well as give his feedback
 
 
-# Development
+## Development
 
-## Installing package
-```
+### Installing package
+
+```shell
 python -m venv .venv
 source .venv/bin/activate
 poetry install
 ```
 
-## Running the server
-```
+### Running the server
+
+```shell
 poetry run dev
 ```
 
 Access the swagger
 http://0.0.0.0:8000/docs
 
+## Docker
 
-# Docker
+### Building the docker image
 
-## Building the docker image
-
-```
+```shell
 docker build -t myfilms-back:alpha -f deploy/Dockerfile .
 ```
 
-## Running the docker image
+### Running the docker image
 
-```
+```shell
 docker run -p 8000:8000 --name myfilms-back myfilms-back:alpha
 ```
 
-# Docker compose
+## Docker compose
 
 Before being able to run the docker compose you will need to build the docker for the two projets: myfilms-front and myfilms-back
 
-```
+```shell
 docker-compose -f deploy/docker-compose.yml up
 ```
