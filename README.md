@@ -38,3 +38,11 @@ docker build -t myfilms-back:alpha -f deploy/Dockerfile .
 ```
 docker run -p 8000:8000 --name myfilms-back myfilms-back:alpha
 ```
+
+# Docker compose
+
+Before being able to run the docker compose you will need to build the docker for the two projets: myfilms-front and myfilms-back
+
+```
+docker-compose -f deploy/docker-compose.yml up
+```
