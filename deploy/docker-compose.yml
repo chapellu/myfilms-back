@@ -1,0 +1,11 @@
+services:
+  myfilms-front:
+    image: myfilms-front:alpha
+    ports:
+      - "3000:80"
+    depends_on:
+      - myfilms-back
+  myfilms-back:
+    image: myfilms-back:alpha
+    ports:
+      - "8000:8000"
